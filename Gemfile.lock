@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/ihatov08/rubocop-hc.git
+  revision: c0abdab9c206dfa97b5780d0db00f0ab513fdb2c
+  specs:
+    rubocop-hc (0.1.0)
+      rubocop
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -135,6 +142,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
+    nokogiri (1.14.0-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
     parallel (1.22.1)
@@ -260,6 +269,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  aarch64-linux
   x86_64-linux
 
 DEPENDENCIES
@@ -276,6 +286,7 @@ DEPENDENCIES
   rails (~> 7.0.0)
   rspec-rails
   rubocop
+  rubocop-hc!
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
