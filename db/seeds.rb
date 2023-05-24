@@ -7,7 +7,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 item = Item.create(
-  name: 'book',
+  name: 'macbook',
   price: 3000
 )
-item.image.attach(io: File.open('app/assets/images/book.jpg'), filename: 'book.jpg')
+item.image.attach(io: File.open('public/assets/macbook-16daa50489c25572a85aca8e1e7d4292caf2cb33a3ac689e8e0c3dd0a82cd655.jpg'), filename: 'macbook.jpg')
