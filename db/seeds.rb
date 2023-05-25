@@ -1,8 +1,7 @@
-item = Item.new(
-  name: 'macbook',
-  price: 3000
-)
+# frozen_string_literal: true
 
-file = File.open('db/seeds/macbook.jpg')
-item.image.attach(io: file, filename: 'mac.jpg')
-item.save
+Item.create(
+  name: 'macbook',
+  price: 3000,
+  image: ActiveStorage::Blob.create_and_upload!(io: File.open('db/seeds/macbook.jpg'), filename: 'mac.jpg')
+)
