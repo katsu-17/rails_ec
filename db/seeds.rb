@@ -11,8 +11,8 @@ item = Item.new(
   price: 3000
 )
 item.image.attach(
-  io: File.open(Rails.root.join('db/seeds/macbook.png')),
-  filename: 'macbook.png',
-  content_type: 'image/png'
+  io: File.open(Rails.root.join('db/seeds/macbook.jpg')),
+  filename: 'macbook.jpg',
+  content_type: 'image/jpeg'
 )
 item.save!
