@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find_by(id: params[:id])
+    @item = Item.find(params[:id])
     @related_items = Item.order(id: :desc).limit(4)
   end
 end
