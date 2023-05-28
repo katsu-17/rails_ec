@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
-Item.create(
+item = Item.new(
   name: 'cup',
-  price: 1200,
-  image: ActiveStorage::Blob.create_and_upload!(io: File.open('db/seeds/cup.jpg'), filename: 'cup.jpg')
+  price: 1000
 )
+item.image.attach(
+  io: File.open(Rails.root.join('db/seeds/cup.jpg')),
+  filename: 'cup.jpg',
+  content_type: 'image/jpeg'
+)
+item.save
