@@ -2,7 +2,7 @@
 
 module Admin
   class ItemsController < ApplicationController
-    http_basic_authenticate_with name: 'su', password: 'pass'
+    http_basic_authenticate_with name: 'su', password: 'password'
 
     def index
       @items = Item.all.order(:id)
