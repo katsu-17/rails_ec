@@ -2,7 +2,9 @@
 
 module Admin
   class ItemsController < ApplicationController
-    http_basic_authenticate_with name: 'su', password: 'password'
+    http_basic_authenticate_with name: 'admin', password: 'pw'
+
+    before_action :find_item_by_id, only: %i[edit update destroy]
 
     def index
       @items = Item.all.order(:id)
@@ -23,14 +25,11 @@ module Admin
       end
     end
 
-    def edit
-      @item = Item.find(params[:id])
-    end
+    def edit; end
 
     def update
-      @item = Item.find(params[:id])
-
       if @item.update(item_params)
+        flash[:success] = "商品「#{@item.name}」を更新しました。"
         redirect_to admin_items_path
       else
         render :edit, status: :unprocessable_entity
@@ -38,16 +37,19 @@ module Admin
     end
 
     def destroy
-      item = Item.find(params[:id])
-      item.destroy
+      @item.destroy
 
-      redirect_to admin_items_path, success: "商品 #{item.name} は削除されました。", status: :see_other
+      redirect_to admin_items_path, success: "商品 #{@item.name} は削除されました。", status: :see_other
     end
 
     private
 
     def item_params
       params.require(:item).permit(:name, :price, :introduction, :image)
+    end
+
+    def find_item_by_id
+      @item = Item.find(params[:id])
     end
   end
 end
