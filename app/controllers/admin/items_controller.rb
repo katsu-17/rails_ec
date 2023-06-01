@@ -4,7 +4,7 @@ module Admin
   class ItemsController < ApplicationController
     http_basic_authenticate_with name: 'admin', password: 'pw'
 
-    before_action :find_item_by_id, only: %i[edit update destroy]
+    before_action :set_item, only: %i[edit update destroy]
 
     def index
       @items = Item.all.order(:id)
@@ -48,7 +48,7 @@ module Admin
       params.require(:item).permit(:name, :price, :introduction, :image)
     end
 
-    def find_item_by_id
+    def set_item
       @item = Item.find(params[:id])
     end
   end
