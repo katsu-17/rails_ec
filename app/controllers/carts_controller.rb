@@ -6,7 +6,6 @@ class CartsController < ApplicationController
   end
 
   def create
-    # binding.pry
     num = params[:num]
     item_id = params[:item_id]
     unit_price = Item.find(item_id).price
