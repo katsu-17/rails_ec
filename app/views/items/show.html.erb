@@ -23,7 +23,7 @@
               <%= f.text_field :num, class: 'form-control text-center me-3', value: '1', style: 'max-width: 3rem' %>
               <%= f.hidden_field :item_id, value: @item.id %>
             </div>
-            <%= f.submit 'カートに入れる', class: 'btn btn-outline-dark flex-shrink-0' %>
+            <%= f.submit 'Add to cart', class: 'btn btn-outline-dark flex-shrink-0' %>
           </div>
         <% end %>
       </div>
@@ -57,7 +57,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">カートに入れる</a></div>
+              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
             </div>
           </div>
         </div>
