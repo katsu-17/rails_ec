@@ -6,4 +6,8 @@ class CartItem < ApplicationRecord
 
   delegate :name,         to: :item
   delegate :introduction, to: :item
+
+  def total_price_per_item
+    num * item.price
+  end
 end

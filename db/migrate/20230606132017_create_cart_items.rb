@@ -6,8 +6,6 @@ class CreateCartItems < ActiveRecord::Migration[7.0]
       t.references :cart, null: false, foreign_key: { on_delete: :cascade }
       t.references :item, null: false, foreign_key: true
       t.integer :num, null: false
-      t.integer :unit_price, null: false
-      t.integer :total_price, null: false
 
       t.timestamps
     end

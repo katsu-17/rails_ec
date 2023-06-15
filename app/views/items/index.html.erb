@@ -1,4 +1,4 @@
-<%= render 'header' %>
+<%= render 'header', current_cart: @current_cart %>
 <!-- Header-->
 <header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
@@ -34,7 +34,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><%= button_to 'Add to cart', carts_path, remote: true, params: { num: 1, item_id: item.id }, class: "btn btn-outline-dark mt-auto" %></div>
+              <div class="text-center"><%= link_to 'Add to cart', cart_items_path(item_id: item, num: 1), data: { turbo_method: :post }, class: "btn btn-outline-dark mt-auto" %></div>
             </div>
           </div>
         </div>

@@ -17,11 +17,10 @@
           <span><%= @item.price %>円</span>
         </div>
         <p class="lead"><%= @item.introduction %></p>
-        <%= form_with url: carts_path do |f| %>
+        <%= form_with url: cart_items_path(item_id: @item) do |f| %>
           <div class="d-flex">
             <div class="form-group">
               <%= f.text_field :num, class: 'form-control text-center me-3', value: '1', style: 'max-width: 3rem' %>
-              <%= f.hidden_field :item_id, value: @item.id %>
             </div>
             <%= f.submit 'Add to cart', class: 'btn btn-outline-dark flex-shrink-0' %>
           </div>
