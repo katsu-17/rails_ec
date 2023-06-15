@@ -24,7 +24,7 @@ item.save
 
 item = Item.new(
   name: 'Macbook',
-  price: 10000
+  price: 10_000
 )
 item.image.attach(
   io: File.open(Rails.root.join('db/seeds/macbook.jpg')),
