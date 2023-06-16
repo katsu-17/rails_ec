@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
-  def index
-    @cart = @current_cart
-  end
+  def index; end
 
   def destroy; end
 end

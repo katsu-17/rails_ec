@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CartItemsController < ApplicationController
+  before_action :current_cart, only: [:create]
+
   def create
     chosen_item = Item.find(params[:item_id])
 
