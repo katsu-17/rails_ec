@@ -3,13 +3,12 @@
 class CartItemsController < ApplicationController
   def create
     chosen_item = Item.find(params[:item_id])
-    current_cart = @current_cart
 
-    if current_cart.items.include?(chosen_item)
-      @cart_item = current_cart.cart_items.find_by(item_id: chosen_item.id)
+    if @current_cart.items.include?(chosen_item)
+      @cart_item = @current_cart.cart_items.find_by(item_id: chosen_item.id)
       @cart_item.num += 1
     else
-      @cart_item = current_cart.cart_items.build(cart_item_params)
+      @cart_item = @current_cart.cart_items.build(cart_item_params)
     end
 
     @cart_item.save!
