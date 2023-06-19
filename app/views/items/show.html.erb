@@ -17,13 +17,14 @@
           <span><%= @item.price %>円</span>
         </div>
         <p class="lead"><%= @item.introduction %></p>
-        <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <button class="btn btn-outline-dark flex-shrink-0" type="button">
-            <i class="bi-cart-fill me-1"></i>
-            カートに入れる
-          </button>
-        </div>
+        <%= form_with url: cart_items_path(item_id: @item) do |f| %>
+          <div class="d-flex">
+            <div class="form-group">
+              <%= f.text_field :num, class: 'form-control text-center me-3', value: '1', style: 'max-width: 3rem' %>
+            </div>
+            <%= f.submit 'Add to cart', class: 'btn btn-outline-dark flex-shrink-0' %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -55,7 +56,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">カートに入れる</a></div>
+              <div class="text-center"><%= link_to 'Add to cart', cart_items_path(item_id: related_item, num: 1), data: { turbo_method: :post }, class: "btn btn-outline-dark mt-auto" %></div>
             </div>
           </div>
         </div>
@@ -69,7 +70,3 @@
     <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
   </div>
 </footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="../../javascript/template.js"></script>
