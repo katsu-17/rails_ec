@@ -1,0 +1,34 @@
+<div class="container">
+  <h1>注文明細</h1>
+  <div>注文日時：<%= @order.created_at.strftime("%Y 年 %m 月 %d 日 %H 時 %M分") %></div>
+  <div class="row border rounded mb-3">
+    <div class="col">
+      <div>
+        <div class="fw-bold">注文者住所</div>
+        <div><%= @order.first_name %> <%= @order.last_name%></div>
+        <div>〒<%= @order.zip%></div>
+        <div><%= @order.address %></div>
+        <div><%= @order.address2 %></div>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <div class="fw-bold">クレジットカード番号（下4桁）</div>
+        <div><%= @order.credit_card_number.slice(-4, 4) %></div>
+      </div>
+    </div>
+    <div class="col">
+      <div>
+        <div class="fw-bold">ご請求額</div>
+        <div><%= @order.total_price %>円</div>
+      </div>
+    </div>
+  </div>
+  <% @order.order_details.each do |order_detail| %>
+    <div class="row border rounded align-items-center py-2">
+      <div class="col-3"><%= order_detail.item_name %></div>
+      <div class="col-3">単価：<%= order_detail.price %>円</div>
+      <div class="col-3">数量：<%= order_detail.num %></div>
+    </div>
+  <% end %>
+</div>

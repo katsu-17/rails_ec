@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @order.last_name %> <%= @order.first_name %>様<br>
+      ご注文ありがとうございます。</h1>
+    <h2>ご注文内容</h2>
+    <div>
+      <p>注文日時：<%= @order.created_at.strftime("%Y 年 %m 月 %d 日 %H 時 %M分") %></p>
+      <% @order.order_details.each do |order_detail| %>
+        <div>
+          <div><%= order_detail.item_name %></div>
+          <div>数量：<%= order_detail.num %></div>
+          <div>単価：<%= order_detail.price %>円</div>
+          <hr>
+        </div>
+      <% end %>
+      <p>支払い金額：<%= @order.total_price %>円</p>
+    </div>
+    <h3>詳細</h3>
+    <div>
+      <div><strong>住所</strong></div>
+      <div><%= @order.first_name %> <%= @order.last_name%></div>
+      <div>〒<%= @order.zip%></div>
+      <div><%= @order.address %></div>
+      <div><%= @order.address2 %></div>
+    </div>
+    <div>
+      <div><strong>クレジットカード番号（下4桁）</strong></div>
+      <div><%= @order.credit_card_number.slice(-4, 4) %></div>
+    </div>
+  </body>
+</html>

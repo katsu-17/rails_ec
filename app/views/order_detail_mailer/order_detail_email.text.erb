@@ -1,0 +1,23 @@
+<%= @order.last_name %> <%= @order.first_name %>様
+ご注文ありがとうございます。
+
+ご注文内容
+
+  注文日時：<%= @order.created_at.strftime("%Y 年 %m 月 %d 日 %H 時 %M分") %>
+    <% @order.order_details.each do |order_detail| %>
+      <%= order_detail.item_name %>
+      数量：<%= order_detail.num %>
+      単価：<%= order_detail.price %>円
+      --------------------------------
+      <% end %>
+      支払い金額：<%= @order.total_price %>円
+
+    詳細
+      住所
+        <%= @order.first_name %> <%= @order.last_name%>
+        〒<%= @order.zip%>
+        <%= @order.address %>
+        <%= @order.address2 %>
+
+      クレジットカード番号（下4桁）
+        <%= @order.credit_card_number.slice(-4, 4) %>
