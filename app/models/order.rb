@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  include CommonModule
-
   has_many :order_details, dependent: :destroy
   has_many :items, through: :order_details
 
@@ -19,10 +17,6 @@ class Order < ApplicationRecord
   validates :cvv, presence: true
 
   def total_price
-    sum = 0
-    order_details.each do |order_detail|
-      sum += order_detail.total_price_per_item
-    end
-    sum
+    sum = order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
   end
 end

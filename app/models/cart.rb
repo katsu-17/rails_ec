@@ -5,10 +5,6 @@ class Cart < ApplicationRecord
   has_many :items, through: :cart_items
 
   def total_price
-    sum = 0
-    cart_items.each do |cart_item|
-      sum += cart_item.total_price_per_item
-    end
-    sum
+    sum = cart_items.inject(0) { |result, cart_item| result + cart_item.total_price_per_item }
   end
 end
