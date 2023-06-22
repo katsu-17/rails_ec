@@ -27,7 +27,8 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    columns = Order.column_symbolized_names
-    params.require(:order).permit(*columns)
+    params.require(:order).permit(:first_name, :last_name, :username, :email, :address, :address2, :country, :state,
+                                  :zip, :shipping_address_same_flg, :save_info_flg, :payment_type, :name_on_card,
+                                  :credit_card_number, :expiration, :cvv)
   end
 end
