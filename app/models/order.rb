@@ -17,6 +17,20 @@ class Order < ApplicationRecord
   validates :cvv, presence: true
 
   def total_price
-    sum = order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
+    order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
+  end
+
+  def pay(cart_id, order_params)
+    order = Order.create(order_params)
+    cart_items = CartItem.where(cart_id: cart_id)
+    cart_items.each do |cart_item|
+      OrderDetail.create(
+        order_id: order.id,
+        item_id: cart_item.item.id,
+        item_name: cart_item.name,
+        price: cart_item.price,
+        num: cart_item.num
+      )
+    end
   end
 end
