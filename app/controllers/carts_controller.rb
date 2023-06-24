@@ -5,7 +5,7 @@ class CartsController < ApplicationController
     @order = Order.new
     return if params[:code].blank?
 
-    if PromotionCode.find_by(code: params[:code])&.status == 'unused'
+    if PromotionCode.find_by(code: params[:code])&.unused?
       cart = Cart.find(session[:cart_id])
       cart.promotion_code = params[:code]
       cart.save
