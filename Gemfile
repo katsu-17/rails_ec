@@ -65,6 +65,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'htmlbeautifier'
+  gem 'letter_opener_web', '~> 2.0'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rails_best_practices'
