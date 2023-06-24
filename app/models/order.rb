@@ -16,8 +16,14 @@ class Order < ApplicationRecord
   validates :expiration, presence: true
   validates :cvv, presence: true
 
+  def discount
+    PromotionCode.find_by(code: promotion_code).discount
+  end
+
   def total_price
-    order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
+    sum = order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
+    sum -= discount if promotion_code
+    sum
   end
 
   def pay(cart_id, order_params)
@@ -32,5 +38,16 @@ class Order < ApplicationRecord
         num: cart_item.num
       )
     end
+    use_promotion_code(cart_id) if Cart.find(cart_id).promotion_code
+  end
+
+  def use_promotion_code(cart_id)
+    promo_code = Cart.find(cart_id).promotion_code
+    order = Order.last
+    order.promotion_code = promo_code
+    order.save
+    promotion_code = PromotionCode.find_by(code: promo_code)
+    promotion_code.status = :used
+    promotion_code.save
   end
 end

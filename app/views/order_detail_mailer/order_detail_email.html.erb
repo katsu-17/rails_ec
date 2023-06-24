@@ -17,12 +17,15 @@
           <hr>
         </div>
       <% end %>
-      <p>支払い金額：<%= @order.total_price %>円</p>
+      <% if @order.promotion_code %>
+        <p>プロモーションコード利用： -<%= @order.discount %>円</p>
+      <% end %>
+      <p>お支払い金額：<%= @order.total_price %>円</p>
     </div>
     <h3>詳細</h3>
     <div>
       <div><strong>住所</strong></div>
-      <div><%= @order.first_name %> <%= @order.last_name%></div>
+      <div><%= @order.last_name%> <%= @order.first_name %></div>
       <div>〒<%= @order.zip%></div>
       <div><%= @order.address %></div>
       <div><%= @order.address2 %></div>

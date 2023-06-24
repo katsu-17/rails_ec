@@ -144,17 +144,15 @@
               <span class="text-body-secondary"><%= cart_item.total_price_per_item %>円</span>
             </li>
           <% end %>
-          <%# プロモーションコードは未実装のため一時的に非表示 %>
-          <% if false %>
+          <% if current_cart.promotion_code %>
             <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
               <div class="text-success">
                 <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
+                <small><%= current_cart.promotion_code %></small>
               </div>
-              <span class="text-success">−$5</span>
+              <span class="text-success">−¥<%= current_cart.discount %></span>
             </li>
           <% end %>
-          <%# ここまで非表示 %>
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (JPY)</span>
             <strong><%= current_cart.total_price %>円</strong>
@@ -162,8 +160,12 @@
         </ul>
         <form class="card p-2">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
+            <%= form_with url: "/promotion_codes", method: :get do |f| %>
+              <%= f.text_field :code, class: "form-control", placeholder: "Promo code" %>
+              <%= f.submit "Redeem", class: "btn btn-secondary" %>
+              <%# <input type="text" class="form-control" placeholder="Promo code">
+              <button type="submit" class="btn btn-secondary">Redeem</button> %>
+            <% end %>
           </div>
         </form>
       </div>
