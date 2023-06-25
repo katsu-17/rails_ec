@@ -8,7 +8,7 @@ class CartsController < ApplicationController
     if PromotionCode.find_by(code: params[:code])&.unused?
       cart = Cart.find(session[:cart_id])
       cart.promotion_code = params[:code]
-      cart.save
+      cart.save!
     else
       flash.now[:danger] = '入力されたプロモーションコードは無効です'
       render 'index', status: :unprocessable_entity

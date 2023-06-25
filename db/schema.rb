@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_24_060559) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.bigint "cart_id", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "username", null: false
@@ -94,9 +95,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_24_060559) do
     t.string "credit_card_number", null: false
     t.string "expiration", null: false
     t.string "cvv", null: false
+    t.string "promotion_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "promotion_code"
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
   end
 
   create_table "promotion_codes", force: :cascade do |t|
@@ -120,4 +122,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_24_060559) do
   add_foreign_key "cart_items", "carts", on_delete: :cascade
   add_foreign_key "cart_items", "items"
   add_foreign_key "order_details", "orders", on_delete: :cascade
+  add_foreign_key "orders", "carts"
 end
