@@ -40,7 +40,6 @@ class Order < ApplicationRecord
         num: cart_item.num
       )
     end
-    use_promotion_code(cart_id) if Cart.find(cart_id).promotion_code
     order
   end
 
@@ -48,9 +47,9 @@ class Order < ApplicationRecord
     promo_code = Cart.find(cart_id).promotion_code
     order = Order.find_by(cart_id: cart_id)
     order.promotion_code = promo_code
-    order.save!
+    order.save
     promotion_code = PromotionCode.find_by(code: promo_code)
     promotion_code.status = :used
-    promotion_code.save!
+    promotion_code.save
   end
 end
