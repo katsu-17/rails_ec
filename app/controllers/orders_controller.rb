@@ -3,7 +3,9 @@
 class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
-    if @order.pay(session[:cart_id], order_params)
+    @order = @order.pay(session[:cart_id], order_params)
+    if @order.valid?
+      @order.use_promotion_code(session[:cart_id]) if Cart.find(session[:cart_id]).promotion_code
       OrderDetailMailer.with(order: Order.find_by(cart_id: session[:cart_id])).order_detail_email.deliver_later
       session[:cart_id] = nil
       flash[:success] = '購入ありがとうございます'
