@@ -47,9 +47,15 @@ class Order < ApplicationRecord
     promo_code = Cart.find(cart_id).promotion_code
     order = Order.find_by(cart_id: cart_id)
     order.promotion_code = promo_code
-    order.save
+    unless order.save
+      flash[:danger] = 'エラーが発生しました。もう一度お試しください。'
+      render 'carts/index'
+    end
     promotion_code = PromotionCode.find_by(code: promo_code)
     promotion_code.status = :used
-    promotion_code.save
+    unless promotion_code.save
+      flash[:danger] = 'エラーが発生しました。もう一度お試しください。'
+      render 'carts/index'
+    end
   end
 end

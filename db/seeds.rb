@@ -9,7 +9,7 @@ item.image.attach(
   filename: 'cup.jpg',
   content_type: 'image/jpeg'
 )
-item.save
+item.save!
 
 item = Item.new(
   name: 'book',
@@ -20,7 +20,7 @@ item.image.attach(
   filename: 'book.jpg',
   content_type: 'image/jpeg'
 )
-item.save
+item.save!
 
 item = Item.new(
   name: 'Macbook',
@@ -31,4 +31,4 @@ item.image.attach(
   filename: 'macbook.jpg',
   content_type: 'image/jpeg'
 )
-item.save
+item.save!
