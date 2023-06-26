@@ -16,10 +16,8 @@ class CartItemsController < ApplicationController
       redirect_back(fallback_location: root_path)
     else
       flash[:danger] = 'カートに登録できませんでした。'
-      redirect_back(fallback_location: root_path)
+      render 'items/index'
     end
-
-
   end
 
   def destroy
