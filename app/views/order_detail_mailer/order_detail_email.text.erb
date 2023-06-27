@@ -9,12 +9,15 @@
       数量：<%= order_detail.num %>
       単価：<%= order_detail.price %>円
       --------------------------------
-      <% end %>
-      支払い金額：<%= @order.total_price %>円
+    <% end %>
+    <% if @order.promotion_code %>
+      プロモーションコード利用： -<%= @order.discount %>円
+    <% end %>
+      お支払い金額：<%= @order.total_price %>円
 
     詳細
       住所
-        <%= @order.first_name %> <%= @order.last_name%>
+        <%= @order.last_name%> <%= @order.first_name %>
         〒<%= @order.zip%>
         <%= @order.address %>
         <%= @order.address2 %>

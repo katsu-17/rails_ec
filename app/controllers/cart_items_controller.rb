@@ -11,10 +11,13 @@ class CartItemsController < ApplicationController
       @cart_item = current_cart.cart_items.build(cart_item_params)
     end
 
-    @cart_item.save!
-
-    flash[:success] = '商品をカートに入れました。'
-    redirect_back(fallback_location: root_path)
+    if @cart_item.save
+      flash[:success] = '商品をカートに入れました。'
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:danger] = 'カートに登録できませんでした。'
+      render 'items/index'
+    end
   end
 
   def destroy

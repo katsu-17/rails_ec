@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    attributes:
+      order:
+        first_name: 名前
+        last_name: 名字
+        username: ユーザー名
+        address: 住所
+        zip: 郵便番号
+        name_on_card: カード名義人
+        credit_card_number: カード番号
+        expiration: 有効期限
+        cvv: セキュリティコード

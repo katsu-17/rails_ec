@@ -5,7 +5,7 @@
     <div class="col">
       <div>
         <div class="fw-bold">注文者住所</div>
-        <div><%= @order.first_name %> <%= @order.last_name%></div>
+        <div><%= @order.last_name%> <%= @order.first_name %></div>
         <div>〒<%= @order.zip%></div>
         <div><%= @order.address %></div>
         <div><%= @order.address2 %></div>
@@ -21,6 +21,9 @@
       <div>
         <div class="fw-bold">ご請求額</div>
         <div><%= @order.total_price %>円</div>
+        <% if @order.promotion_code %>
+          <div>(プロモーションコード利用： -<%= @order.discount %>円)</div>
+        <% end %>
       </div>
     </div>
   </div>

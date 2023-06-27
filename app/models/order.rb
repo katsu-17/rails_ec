@@ -3,6 +3,7 @@
 class Order < ApplicationRecord
   has_many :order_details, dependent: :destroy
   has_many :items, through: :order_details
+  belongs_to :cart
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -16,12 +17,19 @@ class Order < ApplicationRecord
   validates :expiration, presence: true
   validates :cvv, presence: true
 
+  def discount
+    PromotionCode.find_by(code: promotion_code)&.discount || 0
+  end
+
   def total_price
-    order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
+    sum = order_details.inject(0) { |result, order_detail| result + order_detail.total_price_per_item }
+    sum -= discount if promotion_code
+    sum
   end
 
   def pay(cart_id, order_params)
-    order = Order.create(order_params)
+    cart = Cart.find(cart_id)
+    order = cart.create_order(order_params)
     cart_items = CartItem.where(cart_id: cart_id)
     cart_items.each do |cart_item|
       OrderDetail.create(
@@ -31,6 +39,29 @@ class Order < ApplicationRecord
         price: cart_item.price,
         num: cart_item.num
       )
+    end
+    order
+  end
+
+  def use_promotion_code(cart_id)
+    promo_code = Cart.find(cart_id).promotion_code
+    order = Order.find_by(cart_id: cart_id)
+    order.promotion_code = promo_code
+
+    if order.save
+      # 保存成功時は処理を続ける
+    else
+      flash[:danger] = 'エラーが発生しました。もう一度お試しください。'
+      render 'carts/index'
+    end
+
+    promotion_code = PromotionCode.find_by(code: promo_code)
+    promotion_code.status = :used
+    if promotion_code.save
+      # 保存成功時は処理を続ける
+    else
+      flash[:danger] = 'エラーが発生しました。もう一度お試しください。'
+      render 'carts/index'
     end
   end
 end

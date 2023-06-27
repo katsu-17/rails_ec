@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_17_051159) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_24_060559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_051159) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "promotion_code"
   end
 
   create_table "items", force: :cascade do |t|
@@ -77,6 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_051159) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.bigint "cart_id", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "username", null: false
@@ -93,6 +95,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_051159) do
     t.string "credit_card_number", null: false
     t.string "expiration", null: false
     t.string "cvv", null: false
+    t.string "promotion_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_orders_on_cart_id"
+  end
+
+  create_table "promotion_codes", force: :cascade do |t|
+    t.string "code", null: false
+    t.integer "discount", null: false
+    t.integer "status", limit: 2, default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -110,4 +122,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_17_051159) do
   add_foreign_key "cart_items", "carts", on_delete: :cascade
   add_foreign_key "cart_items", "items"
   add_foreign_key "order_details", "orders", on_delete: :cascade
+  add_foreign_key "orders", "carts"
 end

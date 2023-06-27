@@ -3,6 +3,7 @@
 class CreateOrders < ActiveRecord::Migration[7.0]
   def up
     create_table :orders do |t|
+      t.references :cart, null: false, foreign_key: true
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :username, null: false
@@ -19,6 +20,7 @@ class CreateOrders < ActiveRecord::Migration[7.0]
       t.string :credit_card_number, null: false
       t.string :expiration, null: false
       t.string :cvv, null: false
+      t.string :promotion_code
 
       t.timestamps
     end
